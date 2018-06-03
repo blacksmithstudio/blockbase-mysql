@@ -16,7 +16,7 @@ mysql :
     host : localhost
     user : johndoe
     password :
-    port : 5432
+    port : 3306
     database : yourdatabase
 ```
 
