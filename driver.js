@@ -173,6 +173,7 @@ module.exports = (app) => {
 
         /**
          * Append a value to a pSQL Array
+         * @deprecated further developement needed
          * @param {object} item - user item
          * @param {number} target - target id
          * @param {string} column - target column (array)
@@ -200,6 +201,7 @@ module.exports = (app) => {
 
         /**
          * Remove a value from a pSQL Array
+         * @deprecated further developement needed
          * @param {string} item - user item
          * @param {number} target - target id
          * @param {string} column - target column (array)

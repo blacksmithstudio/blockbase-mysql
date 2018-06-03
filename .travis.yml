@@ -18,6 +18,7 @@ before_install:
   - sudo mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'travis'@'localhost';";
   - sudo mysql -u root -e "use mysql; UPDATE user set authentication_string=PASSWORD('TRAVIS') where User='travis';";
   - sudo service mysql restart
+  - sudo mysql -u root test < tests/scripts/prepare.sql
 install:
   - npm install
 script:
