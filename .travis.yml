@@ -3,7 +3,6 @@ node_js:
   "9"
 services:
   - mysql
-dist: precise
 addons:
   apt:
     sources:
