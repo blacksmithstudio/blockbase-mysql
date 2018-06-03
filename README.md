@@ -24,8 +24,8 @@ mysql :
 
 License
 ----
-
-(Copyright) 2017 - Blacksmith
+(Licence [MIT](https://github.com/blacksmithstudio/blockbase-mysql/blob/master/LICENCE))
+Coded by [Blacksmith](https://www.blacksmith.studio)
 
 
 **Free Software, Hell Yeah!**
