@@ -16,7 +16,7 @@ before_install:
   - sudo mysql_upgrade
   - sudo mysql -u root -e "CREATE USER IF NOT EXISTS 'travis'@'localhost';";
   - sudo mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'travis'@'localhost';";
-  - sudo mysql -u root -e "UPDATE user set authentication_string=PASSWORD('') where User='travis';";
+  - sudo mysql -u root -e "UPDATE user set authentication_string=PASSWORD('TRAVIS') where User='travis';";
   - sudo service mysql restart
 install:
   - npm install
