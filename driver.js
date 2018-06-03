@@ -169,55 +169,6 @@ module.exports = (app) => {
             } catch (e) {
                 throw e
             }
-        },
-
-        /**
-         * Append a value to a pSQL Array
-         * @deprecated further developement needed
-         * @param {object} item - user item
-         * @param {number} target - target id
-         * @param {string} column - target column (array)
-         * @param {*} value - value to insert
-         * @returns {Promise<Object>} - updated item
-         */
-        async array_append(item, target, column, value) {
-            let updates = [], values = []
-            for ([key, value] of Object.entries(item.body())) {
-                updates.push(`${key}=?`)
-                values.push(value)
-            }
-            values.push(item.data.id)
-
-            let q = `UPDATE ${item.params.table || (item.params.type + 's')} SET ${column}=array_append(${column}, $1) where id=$2 and $1 <> all (${column}) RETURNING *`
-
-            try {
-                let rows = await query(q, [value, target])
-                item.body(rows[0])
-                return item
-            } catch (e) {
-                throw e
-            }
-        },
-
-        /**
-         * Remove a value from a pSQL Array
-         * @deprecated further developement needed
-         * @param {string} item - user item
-         * @param {number} target - target id
-         * @param {string} column - target column (array)
-         * @param {*} value - value to insert
-         * @returns {Promise<Object>} - updated item
-         */
-        async array_remove(item, target, column, value) {
-            let q = `UPDATE ${item.params.table || (item.params.type + 's')} SET ${column}=array_remove(${column}, $1) where id=$2 RETURNING *`
-
-            try {
-                let rows = await query(q, [value, target])
-                item.body(rows[0])
-                return item
-            } catch (e) {
-                throw e
-            }
         }
     }
 }
