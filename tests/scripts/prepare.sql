@@ -1,5 +1,5 @@
 
-USE users;
+USE test;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(128) NOT NULL DEFAULT '',
