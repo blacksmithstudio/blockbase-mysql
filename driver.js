@@ -132,15 +132,6 @@ module.exports = (app) => {
             if (!item.data || !item.data.id)
                 throw Error(`Cannot update an item without an 'id'`)
 
-            //let updates = [],
-            //    count   = 1
-            //
-            //
-            //for (let [k, v] of Object.entries(item.body())) {
-            //    updates.push(`${k}=$${count}`)
-            //    count++
-            //}
-
             let updates = [], values = []
             for ([key, value] of Object.entries(item.body())) {
                 updates.push(`${key}=?`)
@@ -182,13 +173,20 @@ module.exports = (app) => {
 
         /**
          * Append a value to a pSQL Array
-         * @param {string} item - user item
+         * @param {object} item - user item
          * @param {number} target - target id
          * @param {string} column - target column (array)
          * @param {*} value - value to insert
          * @returns {Promise<Object>} - updated item
          */
         async array_append(item, target, column, value) {
+            let updates = [], values = []
+            for ([key, value] of Object.entries(item.body())) {
+                updates.push(`${key}=?`)
+                values.push(value)
+            }
+            values.push(item.data.id)
+
             let q = `UPDATE ${item.params.table || (item.params.type + 's')} SET ${column}=array_append(${column}, $1) where id=$2 and $1 <> all (${column}) RETURNING *`
 
             try {
