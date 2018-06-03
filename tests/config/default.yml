@@ -5,6 +5,6 @@ dbms: mysql
 mysql:
     host: 127.0.0.1
     password: TRAVIS
-    user: root
+    user: travis
     port: 3306
     database: test
