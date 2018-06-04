@@ -113,5 +113,9 @@ describe('Mysql driver tests', async function () {
                 should.not.exist(e)
             }
         })
+
+        it('done', function () {
+            process.exit()
+        })
     })
 })
