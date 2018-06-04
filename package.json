@@ -1,6 +1,6 @@
 {
   "name": "@blacksmithstudio/blockbase-mysql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "blockbase driver for Mysql",
   "main": "driver.js",
   "scripts": {
