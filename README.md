@@ -26,10 +26,6 @@ mysql driver also supports [npm mysql](https://www.npmjs.com/package/mysql) opti
 
 ### How to use ?
 
-When you configure mysql as your dbms, Blockbase automatically binds the driver to the models with the basic methods. Such as **read/save/update/delete etc.**
-
-
-### Usage
 ##### Standalone
 
 ```js
@@ -56,6 +52,8 @@ module.exports = (app) => {
 ```
 
 ##### With a model :
+
+When you configure mysql as your dbms, Blockbase automatically binds the driver to the models with the basic methods. Such as **read/save/update/delete etc.**
 
 ```js
 //myModel.js
