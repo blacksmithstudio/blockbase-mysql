@@ -1,5 +1,6 @@
 # Driver Mysql for Blockbase
 Compatible with Blockbase Framework
+[![Travis Blockbase](https://api.travis-ci.org/blacksmithstudio/blockbase-mysql.svg?branch=master)](https://travis-ci.org/blacksmithstudio/blockbase-mysql)
 
 ### Version
 1.0.2
@@ -20,12 +21,27 @@ mysql :
     database : yourdatabase
 ```
 
+mysql driver also supports [npm mysql](https://www.npmjs.com/package/mysql) options, and implements **connection Pooling**
+
 ### How to use ?
 
 When you configure mysql as your dbms, Blockbase automatically binds the driver to the models with the basic methods. Such as **read/save/update/delete etc.**
 
 
-Inside your **controller/model/app** :
+### Usage
+##### Standalone
+
+```js
+const mysql = app.drivers.mysql
+
+let q = `SELECT * FROM users`
+try {
+  let result = await mysql.execute(q, [])
+...
+```
+
+
+##### With a controller :
 
 ```js
 //myController.js
@@ -38,9 +54,7 @@ module.exports = (app) => {
     ...
 ```
 
-### Usage
-
-
+##### With a model :
 
 ```js
 //myModel.js
@@ -67,6 +81,17 @@ module.exports = (app) => {
     }
 }
 ```
+
+#### Methods
+
+Blockbase-mysql driver implements the following methods :
+* read   : read data from a Blockbase model that has an id
+* save   : insert data based on a Blockbase model with model validation
+* update : update data based on a Blockbase model
+* delete : delete an item
+* execute: execute a raw query
+
+
 
 #### Run tests
 Blockbase has some unit tests (with [Mocha](https://mochajs.org)) written run them often !
