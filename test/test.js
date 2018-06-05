@@ -10,7 +10,7 @@ process.on('unhandledRejection', (reason, p) => {
     // application specific logging, throwing an error, or other logic here
 })
 
-const blockbase = require('@blacksmithstudio/blockbase')
+const blockbase = require('blockbase')
 
 let driver
 let application
@@ -36,11 +36,11 @@ describe('Mysql driver tests', async function () {
 
     describe('Methods', function () {
         let id
-        let firstname = 'toto'
+        let firstname = 'toto', lastname = 'robert', favorites = [1, 34, {'a': 2}]
         it('should save a user', async function () {
 
             const User = application.models.user
-            const UserModel = new User({firstname})
+            const UserModel = new User({firstname, lastname, favorites})
             try {
                 let user = await UserModel.save()
                 should.exist(user)
@@ -76,10 +76,10 @@ describe('Mysql driver tests', async function () {
 
         it('should update a user', async function () {
 
-            let firstname = 'toto2', lastname = 'robert2'
+            let firstname = 'toto2', lastname = 'robert2', favorites = [1, 2, {'a': 2}]
             const User = application.models.user
 
-            const UserModel = new User({id, firstname, lastname})
+            const UserModel = new User({id, firstname, lastname, favorites})
 
             try {
                 let existing = await UserModel.update()
@@ -115,7 +115,7 @@ describe('Mysql driver tests', async function () {
         })
 
         it('done', function () {
-            process.exit()
+            //process.exit()
         })
     })
 })

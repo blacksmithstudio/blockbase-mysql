@@ -1,10 +1,10 @@
 {
-  "name": "@blacksmithstudio/blockbase-mysql",
-  "version": "1.0.1",
+  "name": "blockbase-mysql",
+  "version": "1.0.2",
   "description": "blockbase driver for Mysql",
   "main": "driver.js",
   "scripts": {
-    "test": "mocha tests/test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "@blacksmithstudio/blockbase": "^1.0.4",
+    "blockbase": "^1.0.6",
     "joi": "^13.3.0",
     "mocha": "^5.2.0",
     "should": "^13.2.1"

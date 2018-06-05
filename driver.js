@@ -48,27 +48,6 @@ module.exports = (app) => {
         })
     }
 
-    /**
-     * Preparation of the values (transformation)
-     * @private
-     * @param {Object[]} values - array of data to prepare
-     *
-     * @returns {Object[]} array of transformed data
-     */
-    function prepare(values) {
-        return _.map(values, (val) => {
-            switch (typeof val) {
-                case 'object':
-                    val = JSON.stringify(val)
-                    break
-                default:
-                    break
-            }
-
-            return val
-        })
-    }
-
     return {
         /**
          * Execute a custom query
@@ -84,15 +63,15 @@ module.exports = (app) => {
         async save(item) {
             if (!item.valid()) throw Error(item.validate().error)
 
-            try {
-                let columns = [], values = []
-                for ([key, value] of Object.entries(item.body())) {
-                    columns.push(key)
-                    values.push(value)
+            for (let [k, v] of Object.entries(item.data)) {
+                if (typeof v == 'object') {
+                    item.data[k] = JSON.stringify(v)
                 }
+            }
 
-                let q = `INSERT INTO ${item.params.table || (item.params.type + 's')} (${columns.join(',')}) VALUES ('${values.join(',')}') `
-                let result = await query(q, prepare(values))
+            try {
+                let q = `INSERT INTO ${item.params.table || (item.params.type + 's')} SET ? `
+                let result = await query(q, [item.data])
                 item.body({id: result.insertId})
                 return await item.read(item)
             } catch (e) {
@@ -135,6 +114,8 @@ module.exports = (app) => {
             let updates = [], values = []
             for ([key, value] of Object.entries(item.body())) {
                 updates.push(`${key}=?`)
+                if (typeof value == 'object')
+                    value = JSON.stringify(value)
                 values.push(value)
             }
             values.push(item.data.id)
@@ -142,7 +123,7 @@ module.exports = (app) => {
             let q = `UPDATE ${item.params.table || (item.params.type + 's')} SET ${updates.join(' , ')} WHERE id=? `
 
             try {
-                await query(q, prepare(values))
+                await query(q, values)
 
                 let rows = this.read(item)
                 item.body(rows[0])
