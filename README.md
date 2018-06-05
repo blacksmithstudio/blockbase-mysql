@@ -26,7 +26,39 @@ mysql driver also supports [npm mysql](https://www.npmjs.com/package/mysql) opti
 
 ### How to use ?
 
+When you configure mysql as your dbms, Blockbase automatically binds the driver to the models with the basic methods. Such as **read/save/update/delete etc.**
+
+##### Basic usage
+
+```js
+//myController.js
+module.exports = (app) => {
+    cont Logger = app.drivers.logger
+    const User = app.models.user
+
+    return {
+        async foo(req, res){
+
+            let user = new User({id: 25})
+            try {
+              user = await user.read()
+
+              //do stuff..
+
+              res.send(user.expose('public'))
+            catch (e) {
+                Logger.error('foo', e)
+                res.status(500).send({error :e})
+            }
+        }
+    }
+}
+```
+
+
 ##### Standalone
+
+The driver can be called inside your controller/models etc..
 
 ```js
 const mysql = app.drivers.mysql
@@ -38,7 +70,7 @@ try {
 ```
 
 
-##### With a controller :
+##### Within a controller :
 
 ```js
 //myController.js
@@ -46,14 +78,13 @@ module.exports = (app) => {
     const mysql = app.drivers.mysql
 
     return {
-        async foo(bar){
+        async foo(req, res){
             //Do something with mysql
     ...
 ```
 
-##### With a model :
+##### Within a model :
 
-When you configure mysql as your dbms, Blockbase automatically binds the driver to the models with the basic methods. Such as **read/save/update/delete etc.**
 
 ```js
 //myModel.js
