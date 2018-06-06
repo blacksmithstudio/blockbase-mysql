@@ -16,14 +16,8 @@ module.exports = (app) => {
         return Logger.error('Drivers', 'Can not init mysql, no valid config')
 
     const config = app.config.get('mysql')
-    const pool = new mysql.createPool({
-        user: config.user,
-        database: config.database,
-        password: config.password,
-        host: config.host,
-        port: config.port,
-        max: 1000,
-    })
+    config.max = config.max || 1000
+    const pool = new mysql.createPool(config)
 
     /**
      * Query function, executing the SQL query
